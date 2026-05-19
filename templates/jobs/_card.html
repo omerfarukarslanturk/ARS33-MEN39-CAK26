@@ -1,0 +1,17 @@
+<article class="job-card">
+    <div class="job-card-head">
+        <div>
+            <h3><a href="{{ url_for('job.detail', job_id=job.id) }}">{{ job.baslik }}</a></h3>
+            <p>{{ job.sirket_adi or job.employer_name }}</p>
+        </div>
+        {% if not job.aktif_mi %}
+            <span class="badge danger">Pasif</span>
+        {% endif %}
+    </div>
+    <p class="job-desc">{{ job.aciklama[:150] }}{% if job.aciklama|length > 150 %}...{% endif %}</p>
+    <div class="badges">
+        <span class="badge">{{ job.sehir }}</span>
+        <span class="badge blue">{{ job.is_turu|replace('_', ' ') }}</span>
+        {% if job.maas %}<span class="badge green">{{ job.maas }}</span>{% endif %}
+    </div>
+</article>

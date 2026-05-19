@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Giriş Yap{% endblock %}
+{% block content %}
+<section class="auth-card">
+    <h1>Giriş Yap</h1>
+    <form method="post" class="form">
+        <label>E-posta
+            <input type="email" name="email" required>
+        </label>
+        <label>Şifre
+            <input type="password" name="password" required>
+        </label>
+        <button class="button" type="submit">Giriş Yap</button>
+    </form>
+</section>
+{% endblock %}

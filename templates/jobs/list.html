@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}İş İlanları{% endblock %}
+{% block content %}
+<section class="section-header">
+    <div>
+        <h1>İş İlanları</h1>
+        <p>Başlık, şehir ve iş türüne göre filtreleyin.</p>
+    </div>
+</section>
+
+<form method="get" class="filter-bar">
+    <input name="q" placeholder="Başlık anahtar kelimesi" value="{{ request.args.get('q', '') }}">
+    <input name="sehir" placeholder="Şehir" value="{{ request.args.get('sehir', '') }}">
+    <select name="is_turu">
+        <option value="">Tüm iş türleri</option>
+        {% for job_type in job_types %}
+            <option value="{{ job_type }}" {% if request.args.get('is_turu') == job_type %}selected{% endif %}>{{ job_type|replace('_', ' ') }}</option>
+        {% endfor %}
+    </select>
+    <button class="button" type="submit">Filtrele</button>
+</form>
+
+<div class="job-grid">
+    {% for job in jobs %}
+        {% include "jobs/_card.html" %}
+    {% else %}
+        <p class="empty">Filtrelere uygun ilan bulunamadı.</p>
+    {% endfor %}
+</div>
+{% endblock %}

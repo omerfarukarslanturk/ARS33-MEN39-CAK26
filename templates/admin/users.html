@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Kullanıcılar{% endblock %}
+{% block content %}
+<section class="section-header"><h1>Kullanıcılar</h1></section>
+<div class="table-wrap">
+    <table>
+        <thead><tr><th>ID</th><th>Ad</th><th>E-posta</th><th>Rol</th><th>Aktif</th><th>İşlem</th></tr></thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.user_type }}</td>
+                    <td>{{ 'Evet' if user.active else 'Hayır' }}</td>
+                    <td>
+                        {% if user.active %}
+                            <form method="post" action="{{ url_for('admin.deactivate', user_id=user.id) }}">
+                                <button class="button small danger" type="submit">Deaktive Et</button>
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

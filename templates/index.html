@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}İşimi Buldum{% endblock %}
+{% block content %}
+<section class="hero">
+    <div>
+        <p class="eyebrow">LinkedIn Jobs benzeri demo platform</p>
+        <h1>Yeteneğine uygun işi, doğru şirketle buluştur.</h1>
+        <p class="hero-copy">İş arayanlar başvuru yapabilir, işverenler ilan ve aday sürecini kolayca yönetebilir.</p>
+        <div class="hero-actions">
+            <a class="button" href="{{ url_for('job.jobs') }}">İş İlanlarını Gör</a>
+            {% if not current_user %}
+                <a class="button ghost" href="{{ url_for('auth.register') }}">Hesap Oluştur</a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="section-header">
+    <div>
+        <h2>Öne Çıkan İlanlar</h2>
+        <p>Demo veriler ilk çalıştırmada otomatik eklenir.</p>
+    </div>
+</section>
+
+<div class="job-grid">
+    {% for job in jobs[:6] %}
+        {% include "jobs/_card.html" %}
+    {% else %}
+        <p class="empty">Henüz ilan bulunmuyor.</p>
+    {% endfor %}
+</div>
+{% endblock %}

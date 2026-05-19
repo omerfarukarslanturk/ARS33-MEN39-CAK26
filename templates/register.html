@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Kayıt Ol{% endblock %}
+{% block content %}
+<section class="auth-card">
+    <h1>Kayıt Ol</h1>
+    <form method="post" class="form">
+        <label>Ad Soyad / Kullanıcı Adı
+            <input name="username" required>
+        </label>
+        <label>E-posta
+            <input type="email" name="email" required>
+        </label>
+        <label>Şifre
+            <input type="password" name="password" minlength="6" required>
+        </label>
+        <label>Rol
+            <select name="user_type" data-role-select>
+                <option value="jobseeker">İş Arayan</option>
+                <option value="employer">İşveren</option>
+            </select>
+        </label>
+        <label>Şehir
+            <input name="sehir">
+        </label>
+        <label data-company-field class="hidden">Şirket Adı
+            <input name="sirket_adi">
+        </label>
+        <button class="button" type="submit">Hesap Oluştur</button>
+    </form>
+</section>
+{% endblock %}

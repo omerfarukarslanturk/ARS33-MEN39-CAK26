@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Profil Düzenle{% endblock %}
+{% block content %}
+<section class="detail-panel">
+    <h1>Profil Düzenle</h1>
+    <form method="post" class="form">
+        <label>Kullanıcı Adı
+            <input name="username" value="{{ user.username }}" required>
+        </label>
+        {% if user.user_type == 'employer' %}
+            <label>Şirket Adı
+                <input name="sirket_adi" value="{{ user.sirket_adi }}">
+            </label>
+            <label>Şirket Açıklaması
+                <textarea name="sirket_aciklamasi" rows="5">{{ user.sirket_aciklamasi }}</textarea>
+            </label>
+            <label>Website
+                <input name="website" value="{{ user.website }}">
+            </label>
+        {% else %}
+            <label>Bio
+                <textarea name="bio" rows="4">{{ user.bio }}</textarea>
+            </label>
+            <label>Beceriler
+                <input name="beceriler" value="{{ user.beceriler }}">
+            </label>
+            <label>Şehir
+                <input name="sehir" value="{{ user.sehir }}">
+            </label>
+            <label>Özgeçmiş Metni
+                <textarea name="ozgecmis_metni" rows="6">{{ user.ozgecmis_metni }}</textarea>
+            </label>
+        {% endif %}
+        <button class="button" type="submit">Kaydet</button>
+    </form>
+</section>
+{% endblock %}

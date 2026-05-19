@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Başvuranlar{% endblock %}
+{% block content %}
+<section class="section-header">
+    <div>
+        <h1>{{ job.baslik if job else 'İlan' }} Başvuruları</h1>
+        <p>Adayların ön yazılarını ve başvuru durumlarını buradan inceleyebilirsiniz.</p>
+    </div>
+</section>
+
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>Aday</th>
+                <th>E-posta</th>
+                <th>Şehir</th>
+                <th>Beceriler</th>
+                <th>Ön Yazı</th>
+                <th>Durum</th>
+                <th>İşlem</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for app in applications %}
+                <tr>
+                    <td>{{ app.username }}</td>
+                    <td>{{ app.email }}</td>
+                    <td>{{ app.sehir }}</td>
+                    <td>{{ app.beceriler }}</td>
+                    <td class="cover-letter">{{ app.on_yazi or 'Ön yazı eklenmedi.' }}</td>
+                    <td><span class="status {{ app.durum }}">{{ app.durum|replace('_', ' ') }}</span></td>
+                    <td>
+                        <form method="post" action="{{ url_for('application.update_status', application_id=app.id) }}" class="inline-form">
+                            <select name="durum">
+                                {% for status in ['beklemede', 'incelendi', 'kabul_edildi', 'reddedildi'] %}
+                                    <option value="{{ status }}" {% if app.durum == status %}selected{% endif %}>{{ status|replace('_', ' ') }}</option>
+                                {% endfor %}
+                            </select>
+                            <button class="button small" type="submit">Güncelle</button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr><td colspan="7">Henüz başvuru yok.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

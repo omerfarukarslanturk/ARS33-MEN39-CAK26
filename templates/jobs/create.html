@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}{% if job %}İlan Düzenle{% else %}İlan Oluştur{% endif %}{% endblock %}
+{% block content %}
+<section class="detail-panel">
+    <h1>{% if job %}İlan Düzenle{% else %}Yeni İlan Oluştur{% endif %}</h1>
+    <form method="post" class="form">
+        <label>Başlık
+            <input name="baslik" value="{{ job.baslik if job else '' }}" required>
+        </label>
+        <label>Açıklama
+            <textarea name="aciklama" rows="7" required>{{ job.aciklama if job else '' }}</textarea>
+        </label>
+        <label>Maaş
+            <input name="maas" value="{{ job.maas if job else '' }}">
+        </label>
+        <label>Şehir
+            <input name="sehir" value="{{ job.sehir if job else '' }}" required>
+        </label>
+        <label>İş Türü
+            <select name="is_turu">
+                {% for job_type in job_types %}
+                    <option value="{{ job_type }}" {% if job and job.is_turu == job_type %}selected{% endif %}>{{ job_type|replace('_', ' ') }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <button class="button" type="submit">Kaydet</button>
+    </form>
+</section>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}İş Arayan Paneli{% endblock %}
+{% block content %}
+<section class="section-header">
+    <div>
+        <h1>İş Arayan Paneli</h1>
+        <p>Başvurularınızı ve durumlarını buradan takip edin.</p>
+    </div>
+    <a class="button" href="{{ url_for('job.jobs') }}">İş Ara</a>
+</section>
+
+<div class="table-wrap">
+    <table>
+        <thead><tr><th>İlan</th><th>Şirket</th><th>Şehir</th><th>Tür</th><th>Durum</th><th>Tarih</th></tr></thead>
+        <tbody>
+            {% for app in applications %}
+                <tr>
+                    <td>{{ app.baslik }}</td>
+                    <td>{{ app.sirket_adi }}</td>
+                    <td>{{ app.sehir }}</td>
+                    <td>{{ app.is_turu|replace('_', ' ') }}</td>
+                    <td><span class="status {{ app.durum }}">{{ app.durum|replace('_', ' ') }}</span></td>
+                    <td>{{ app.basvuru_tarihi }}</td>
+                </tr>
+            {% else %}
+                <tr><td colspan="6">Henüz başvuru yapmadınız.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

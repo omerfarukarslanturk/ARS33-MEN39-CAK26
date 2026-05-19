@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}İşveren Paneli{% endblock %}
+{% block content %}
+<section class="section-header">
+    <div>
+        <h1>İşveren Paneli</h1>
+        <p>İlanlarınızı ve başvuran adayları yönetin.</p>
+    </div>
+    <a class="button" href="{{ url_for('job.create') }}">İlan Oluştur</a>
+</section>
+
+<div class="job-grid">
+    {% for job in jobs %}
+        <article class="job-card">
+            <h3>{{ job.baslik }}</h3>
+            <p>{{ job.sehir }} · {{ job.is_turu|replace('_', ' ') }}</p>
+            <p>{{ job.basvuru_sayisi }} başvuru</p>
+            <div class="card-actions">
+                <a class="button small" href="{{ url_for('job.applicants', job_id=job.id) }}">Başvuranlar</a>
+                <a class="button small ghost" href="{{ url_for('job.edit', job_id=job.id) }}">Düzenle</a>
+                <form method="post" action="{{ url_for('job.delete', job_id=job.id) }}">
+                    <button class="button small danger" type="submit">Sil</button>
+                </form>
+            </div>
+        </article>
+    {% else %}
+        <p class="empty">Henüz ilan oluşturmadınız.</p>
+    {% endfor %}
+</div>
+{% endblock %}

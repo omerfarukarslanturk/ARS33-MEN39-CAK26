@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Admin Paneli{% endblock %}
+{% block content %}
+<section class="section-header">
+    <div>
+        <h1>Admin Paneli</h1>
+        <p>Sistem istatistikleri ve yönetim bağlantıları.</p>
+    </div>
+</section>
+
+<div class="stats-grid">
+    <div class="stat"><span>{{ counts.users }}</span><p>Kullanıcı</p></div>
+    <div class="stat"><span>{{ counts.jobs }}</span><p>İlan</p></div>
+    <div class="stat"><span>{{ counts.active_jobs }}</span><p>Aktif İlan</p></div>
+    <div class="stat"><span>{{ counts.applications }}</span><p>Başvuru</p></div>
+</div>
+
+<div class="admin-links">
+    <a class="button" href="{{ url_for('admin.users') }}">Kullanıcılar</a>
+    <a class="button" href="{{ url_for('admin.logs') }}">Loglar</a>
+    <a class="button" href="{{ url_for('admin.reports') }}">Raporlar</a>
+</div>
+{% endblock %}

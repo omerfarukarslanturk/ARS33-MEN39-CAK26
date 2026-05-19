@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Profilim{% endblock %}
+{% block content %}
+<section class="detail-panel">
+    <div class="detail-head">
+        <div>
+            <h1>{{ user.username }}</h1>
+            <p>{{ user.email }} · {{ user.user_type }}</p>
+        </div>
+        <a class="button" href="{{ url_for('profile.edit') }}">Profili Düzenle</a>
+    </div>
+
+    {% if user.user_type == 'employer' %}
+        <h2>{{ user.sirket_adi }}</h2>
+        <p>{{ user.sirket_aciklamasi or 'Şirket açıklaması eklenmedi.' }}</p>
+        <p>{{ user.website }}</p>
+    {% else %}
+        <h2>{{ user.sehir }}</h2>
+        <p>{{ user.bio or 'Bio eklenmedi.' }}</p>
+        <p><strong>Beceriler:</strong> {{ user.beceriler }}</p>
+        <p><strong>Özgeçmiş:</strong> {{ user.ozgecmis_metni }}</p>
+    {% endif %}
+</section>
+{% endblock %}

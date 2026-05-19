@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}{{ job.baslik }}{% endblock %}
+{% block content %}
+<article class="detail-panel">
+    <div class="detail-head">
+        <div>
+            <h1>{{ job.baslik }}</h1>
+            <p>{{ job.sirket_adi or job.employer_name }} · {{ job.sehir }}</p>
+        </div>
+        <span class="badge blue">{{ job.is_turu|replace('_', ' ') }}</span>
+    </div>
+    <p class="salary">{{ job.maas }}</p>
+    <p>{{ job.aciklama }}</p>
+
+    {% if current_user and current_user.user_type == 'jobseeker' %}
+        <form method="post" action="{{ url_for('application.apply', job_id=job.id) }}" class="form apply-form">
+            <label>Ön Yazı
+                <textarea name="on_yazi" rows="5" placeholder="Bu pozisyona neden uygun olduğunuzu kısaca yazın." required></textarea>
+            </label>
+            <button class="button" type="submit">Bu İlana Başvur</button>
+        </form>
+    {% elif not current_user %}
+        <a class="button" href="{{ url_for('auth.login') }}">Başvurmak İçin Giriş Yap</a>
+    {% endif %}
+</article>
+{% endblock %}
